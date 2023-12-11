@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ folder }} | 
+{% endblock %}
+{% block content %}
+        <div class="col-md-12">
+          <h1>{{ folder }}</h1>
+	  <p>Created by <a href="{% url 'gallery:user' folder.user %}">{{ folder.user }}</a> at {{ folder.pub_date }}</p>
+        </div>
+	 {% if user == folder.user %}
+          <a href="{% url 'gallery:delete_folder' folder.pk %}" class="btn btn-dark">Delete Folder</a>
+          {% endif %}
+               <div class="row justify-content-center">
+		{% for picture in picture_list %}
+            <div class="card" style="width:150px; height:250px; margin:10px;">
+	      <a href="{% url 'comment:index' picture.id %}">
+	      <div class="card-body">
+              <p class="card-title">{{ picture.title }}</p>
+              </div>
+            {% load thumbnail %}
+            {% thumbnail picture.image "150x150" crop="center" as im %}
+                <img src="{{ im.url }}" class="img-fluid" />
+	    {% endthumbnail %}
+		</a>
+	    </div>
+
+          {% endfor %}
+        </div>
+{% endblock %}

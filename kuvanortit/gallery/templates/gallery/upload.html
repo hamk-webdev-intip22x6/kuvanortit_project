@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+Upload | 
+{% endblock %}
+{% block content %}
+<h1>Image Upload</h1>
+
+{% if user.is_authenticated %}
+    <form method = "post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-dark">Upload</button>
+    </form>
+{% else %}
+    <p>You must login first.</p>
+    <p><a href="login">Login</a></p>
+    <p><a href="signup">Sign up</a></p>
+{% endif %}
+<p><a href="{% url 'gallery:index' %}">Go back to main page</a></p>
+{% endblock %}

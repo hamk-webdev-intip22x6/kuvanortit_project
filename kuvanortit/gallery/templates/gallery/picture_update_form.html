@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}
+Edit {{ picture }} | 
+{% endblock %}
+{% block content %}
+<form class="form-control" method="post">{% csrf_token %}
+    {{ form.as_p }}
+  <input type="submit" value="Update" class="btn btn-dark">
+<a href="{% url 'comment:index' picture.pk %}"><input type="button" value="Back" class="btn btn-dark"></a>
+</form>
+{% endblock %}

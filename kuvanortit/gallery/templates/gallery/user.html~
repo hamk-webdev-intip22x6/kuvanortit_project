@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+        <div class="col-md-12">
+            <h1>Gallery</h1>
+            <p><a href="{% url 'gallery:image_upload' %}">Upload more images</a></p>
+            <p><a href="{% url 'gallery:create_folder' %}">Create Folder</a></p>
+        </div>
+        {% for folder in folder_list %}
+        <a href="{% url 'gallery:detail' folder.id %}">{{ folder.title }}</a>
+        {% endfor %}
+
+{% endblock %}
