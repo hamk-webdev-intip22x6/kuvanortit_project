@@ -1,39 +1,39 @@
 {% extends 'base.html' %}
 {% block title %}
-Gallery | 
+Gallery |
 {% endblock %}
 {% block content %}
-	
-        <div class="col-md-12">
 
-            <h1>Gallery</h1>
-           <a href="{% url 'gallery:image_upload' %}"><button class="btn btn-dark">Upload more images</button></a>
-	   <a href="{% url 'gallery:create_folder' %}"><button class="btn btn-dark">Create Folder</button></a> 
-        </div>
-           <div class="row justify-content-center">
-                {% for picture in picture_list %}
-            <div class="card" style="width:150px; height:250px; margin:10px;">
-	      <a href="{% url 'comment:index' picture.id %}">
-	      <div class="card-body">
-              <p class="card-title">{{ picture.title }}</p>
-              </div>
-            {% load thumbnail %}
-            {% thumbnail picture.image "150x150" crop="center" as im %}
-                <img src="{{ im.url }}" class="img-fluid" />
-            {% endthumbnail %}
-		</a>
-	    </div>
-            
+<div class="col-md-12">
 
-          {% endfor %}
-        </div>
+  <h1>Gallery</h1>
+  <a href="{% url 'gallery:image_upload' %}"><button class="btn btn-dark">Upload more images</button></a>
+  <a href="{% url 'gallery:create_folder' %}"><button class="btn btn-dark">Create Folder</button></a>
+</div>
+<div class="row justify-content-center">
+  {% for picture in picture_list %}
+  <div class="card" style="width:150px; height:250px; margin:10px;">
+    <a href="{% url 'comment:index' picture.id %}">
+      <div class="card-body">
+        <p class="card-title">{{ picture.title }}</p>
+      </div>
+      {% load thumbnail %}
+      {% thumbnail picture.image "150x150" crop="center" as im %}
+      <img src="{{ im.url }}" class="img-fluid" />
+      {% endthumbnail %}
+    </a>
+  </div>
+
+
+  {% endfor %}
+</div>
 
 
 <nav aria-label="...">
   <ul class="pagination">
     {% if page_obj.has_previous %}
     <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-    {% else %}
+      {% else %}
     <li class="page-item disabled">
       <a class="page-link">Previous</a>
     </li>
@@ -46,9 +46,9 @@ Gallery |
       <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
     </li>
     {% else %}
-        <li class="page-item disabled">
+    <li class="page-item disabled">
       <a class="page-link">Next</a>
-	</li>
+    </li>
     {% endif %}
   </ul>
 </nav>

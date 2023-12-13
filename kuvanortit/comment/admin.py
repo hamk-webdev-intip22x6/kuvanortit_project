@@ -4,9 +4,11 @@ from django.contrib import admin
 
 from .models import Post
 
+
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('author', 'comment', 'picture', 'date')
-    list_filter = ['date']
-    search_fields = ['comment', 'picture']
+    list_display = ("author", "comment", "picture", "date")
+    list_filter = ["date"]
+    search_fields = ["comment", "picture"]
+
 
 admin.site.register(Post, PostAdmin)

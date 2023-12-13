@@ -1,42 +1,44 @@
 {% extends 'base.html' %}
 {% block title %}
-{{ picture }} | 
+  {{ picture }} |
 {% endblock %}
 {% block content %}
-        <div class="col-md-12">
-          <h1>{{ picture.title }}</h1>
-          <p>Uploaded by <a href="{% url 'gallery:user' picture.folder.user %}">{{ picture.folder.user }}</a> at {{ picture.pub_date }} to <a href="{% url 'gallery:folder' picture.folder.pk %}">{{ picture.folder.title }}</a></p>
-        </div>
-        {% if user == picture.folder.user %}
-	<div class="container-fluid">
-  		
-    			<a href="{% url 'gallery:edit_picture' picture.pk %}" class="btn btn-dark">Edit</a>
-    			<a href="{% url 'gallery:delete_picture' picture.pk %}" class="btn btn-dark">Delete Picture</a>
-  	
-	</div>
-        {% endif %}
-	<hr>
-          <div class="row">
-            <a href="{{ picture.image.url }}"><img src="{{ picture.image.url }}" class="img-fluid" style="max-width: 80\
-%; float: left; margin-right: 10px;" /></a>
-          <p>Description: {{ picture.description }}</p>
-          </div>
-    <a href="{% url 'comment:post' picture.id %}"><button class="btn btn-dark">Add a comment</button></a>        
-    {% if comment_list %}
-        <h2>Comments</h2>
-        <ul class="list-group">
-            {% for comment in comment_list %}
-	    <li class="list-group-item"><strong>{{ comment.author }} {{ comment.date }}</strong>
- 	    {% if user == comment.author %}
-	    <a href="{% url 'comment:delete' picture.id comment.id %}"><button class="btn btn-dark">delete</button></a>
-            {% endif %}
-		{{ comment.comment|linebreaks }}
-                
-	    </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No comments were found.</p>
-    {% endif %}
-</div>
+  <div class="col-md-12">
+    <h1>{{ picture.title }}</h1>
+    <p>
+      Uploaded by <a href="{% url 'gallery:user' picture.folder.user %}">{{ picture.folder.user }}</a> at {{ picture.pub_date }} to <a href="{% url 'gallery:folder' picture.folder.pk %}">{{ picture.folder.title }}</a>
+    </p>
+  </div>
+  {% if user == picture.folder.user %}
+    <div class="container-fluid">
+      <div class="row">
+        <a href="{% url 'gallery:edit_picture' picture.pk %}"><button>Edit</button></a>
+      </div>
+      <div class="row">
+        <a href="{% url 'gallery:delete_picture' picture.pk %}"><button>Delete Picture</button></a>
+      </div>
+    </div>
+  {% endif %}
+  <hr />
+  <div class="row">
+    <a href="{{ picture.image.url }}"><img src="{{ picture.image.url }}" class="img-fluid" style="max-width: 80%; float: left; margin-right: 10px;" /></a>
+    <p>Description: {{ picture.description }}</p>
+  </div>
+  <a href="{% url 'comment:post' picture.id %}">Add a comment</a>
+  {% if comment_list %}
+    <h2>Comments</h2>
+    <ul class="list-group">
+      {% for comment in comment_list %}
+        <li class="list-group-item">
+          <strong>{{ comment.author }} {{ comment.date }}</strong>
+          {% if user == comment.author %}
+            <a href="{% url 'comment:delete' picture.id comment.id %}"><button class="btn btn-dark">delete comment</button></a>
+          {% endif %}
+          {{ comment.comment|linebreaks }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No comments were found.</p>
+  {% endif %}
 {% endblock %}
