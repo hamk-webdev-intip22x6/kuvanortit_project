@@ -5,7 +5,7 @@
 {% block content %}
   <form class="form-control" method="post">
     {% csrf_token %}
-    {{ form.as_table }}
+    {{ form.as_p }}
     <input type="submit" value="Update" />
     <a href="{% url 'comment:index' picture.pk %}"><input type="button" value="Back" /></a>
   </form>
